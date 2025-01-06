@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'base.apps.BaseConfig',
+    'base',
     'player.apps.PlayerConfig',
     'judge.apps.JudgeConfig',
     'rest_framework',
