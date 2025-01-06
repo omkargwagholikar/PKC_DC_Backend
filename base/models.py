@@ -47,6 +47,16 @@ class UserSubmission(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     special_notes = models.TextField(blank=True, null=True)
 
+    # For judging
+    status = models.CharField(
+        max_length=20,
+        choices=[('pending', 'Pending'), ('approved', 'Approved'), ('rejected', 'Rejected')],
+        default='pending'
+    )
+
+    # score = models.FloatField(null=True, blank=True)
+    # feedback = models.TextField(null=True, blank=True)
+
     def __str__(self):
         return f"Submission {self.submission_id} by {self.user.username}"
 

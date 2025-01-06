@@ -6,7 +6,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.parsers import MultiPartParser
 from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
-
+from datetime import datetime
 from base.models import *
 from rest_framework import status
 
@@ -34,8 +34,9 @@ def solution(request):
 
     # Save uploaded files
     saved_files = []
-    for key, file in request.FILES.items():
+    for key, file in request.FILES.items():        
         print(f"Saving {file.name}")
+        file.name = f"{user}_{datetime.now()}_{file.name}"
         uploaded_file = UploadedFile(file=file)
         uploaded_file.save()
         saved_files.append(uploaded_file)
