@@ -10,6 +10,9 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from ..models import *
 from django.shortcuts import get_object_or_404
 from ..serializers import *
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
 
 @api_view(['GET'])
 def getRoutes(request):
@@ -19,11 +22,12 @@ def getRoutes(request):
     ]
     return Response(routes)
 
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
 
 class UserSubmissionListView(APIView):
+    
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
     def get(self, request):
         submissions = UserSubmission.objects.all()  # Retrieve all UserSubmission objects
         serializer = UserSubmissionSerializer(submissions, many=True)  # Serialize as a list
