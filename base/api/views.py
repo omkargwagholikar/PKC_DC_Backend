@@ -34,11 +34,20 @@ class UserSubmissionListView(APIView):
         return Response({"submissions": serializer.data}, status=status.HTTP_200_OK)
 
     def post(self, request, submission_id=None):
+        print(submission_id, request.data.get("score"), request.data.get("feedback"))
+        # print(request.data)
+        try:
+            sub = UserSubmission.objects.get(submission_id=submission_id)
+            judgement = Judgment(user_submission=sub, remarks="test", score=10.1)
+            judgement.save()
+        except Exception as e:
+            print(f"Error in judgement: {str(e)}")
+
         return Response(
             {
             "status": "approved",
-            "score": -95.5,
-            "feedback": "dummy"
+            "score": request.data.get("score"),
+            "feedback": request.data.get("feedback"),
             },
             status=status.HTTP_200_OK
             )

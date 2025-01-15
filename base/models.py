@@ -43,7 +43,7 @@ class UserSubmission(models.Model):
     submission_id = models.AutoField(primary_key=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     files_submitted = models.ManyToManyField(UploadedFile, related_name="submissions")
-    question = models.ForeignKey("Question", on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     special_notes = models.TextField(blank=True, null=True)
 
@@ -63,8 +63,8 @@ class UserSubmission(models.Model):
 # Model for Judgments
 class Judgment(models.Model):
     user_submission = models.ForeignKey(UserSubmission, on_delete=models.CASCADE)
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    # question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    # user = models.ForeignKey(User, on_delete=models.CASCADE)
     remarks = models.TextField()
     score = models.FloatField()
 
