@@ -6,16 +6,16 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('base', '0005_usersubmission_feedback_usersubmission_score_and_more'),
+        ("base", "0005_usersubmission_feedback_usersubmission_score_and_more"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='usersubmission',
-            name='feedback',
+            model_name="usersubmission",
+            name="feedback",
         ),
         migrations.RemoveField(
-            model_name='usersubmission',
-            name='score',
+            model_name="usersubmission",
+            name="score",
         ),
     ]

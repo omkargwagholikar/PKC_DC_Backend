@@ -10,49 +10,111 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('base', '0001_initial'),
+        ("base", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Question',
+            name="Question",
             fields=[
-                ('question_id', models.AutoField(primary_key=True, serialize=False)),
-                ('domain', models.CharField(max_length=255)),
-                ('problem_statement', models.TextField()),
-                ('difficulty_level', models.CharField(choices=[('Easy', 'Easy'), ('Medium', 'Medium'), ('Hard', 'Hard')], max_length=10)),
+                ("question_id", models.AutoField(
+                    primary_key=True, serialize=False)),
+                ("domain", models.CharField(max_length=255)),
+                ("problem_statement", models.TextField()),
+                (
+                    "difficulty_level",
+                    models.CharField(
+                        choices=[
+                            ("Easy", "Easy"),
+                            ("Medium", "Medium"),
+                            ("Hard", "Hard"),
+                        ],
+                        max_length=10,
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='CustomUser',
+            name="CustomUser",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('is_judge', models.BooleanField(default=False)),
-                ('is_player', models.BooleanField(default=False)),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("is_judge", models.BooleanField(default=False)),
+                ("is_player", models.BooleanField(default=False)),
+                (
+                    "user",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='UserSubmission',
+            name="UserSubmission",
             fields=[
-                ('submission_id', models.AutoField(primary_key=True, serialize=False)),
-                ('timestamp', models.DateTimeField(auto_now_add=True)),
-                ('files_submitted', models.FileField(upload_to='submissions/')),
-                ('special_notes', models.TextField(blank=True, null=True)),
-                ('question', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='base.question')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ("submission_id", models.AutoField(
+                    primary_key=True, serialize=False)),
+                ("timestamp", models.DateTimeField(auto_now_add=True)),
+                ("files_submitted", models.FileField(upload_to="submissions/")),
+                ("special_notes", models.TextField(blank=True, null=True)),
+                (
+                    "question",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="base.question"
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Judgment',
+            name="Judgment",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('remarks', models.TextField()),
-                ('score', models.FloatField()),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
-                ('question', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='base.question')),
-                ('user_submission', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='base.usersubmission')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("remarks", models.TextField()),
+                ("score", models.FloatField()),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "question",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="base.question"
+                    ),
+                ),
+                (
+                    "user_submission",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="base.usersubmission",
+                    ),
+                ),
             ],
         ),
     ]

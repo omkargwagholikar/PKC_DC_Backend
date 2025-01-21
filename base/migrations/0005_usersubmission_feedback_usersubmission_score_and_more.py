@@ -6,23 +6,31 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('base', '0004_uploadedfile_remove_usersubmission_files_submitted_and_more'),
+        ("base", "0004_uploadedfile_remove_usersubmission_files_submitted_and_more"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='usersubmission',
-            name='feedback',
+            model_name="usersubmission",
+            name="feedback",
             field=models.TextField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='usersubmission',
-            name='score',
+            model_name="usersubmission",
+            name="score",
             field=models.FloatField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='usersubmission',
-            name='status',
-            field=models.CharField(choices=[('pending', 'Pending'), ('approved', 'Approved'), ('rejected', 'Rejected')], default='pending', max_length=20),
+            model_name="usersubmission",
+            name="status",
+            field=models.CharField(
+                choices=[
+                    ("pending", "Pending"),
+                    ("approved", "Approved"),
+                    ("rejected", "Rejected"),
+                ],
+                default="pending",
+                max_length=20,
+            ),
         ),
     ]

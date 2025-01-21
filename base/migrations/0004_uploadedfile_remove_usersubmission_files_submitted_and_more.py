@@ -6,25 +6,35 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('base', '0003_question_problem_title'),
+        ("base", "0003_question_problem_title"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='UploadedFile',
+            name="UploadedFile",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('file', models.FileField(upload_to='submissions/')),
-                ('uploaded_at', models.DateTimeField(auto_now_add=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("file", models.FileField(upload_to="submissions/")),
+                ("uploaded_at", models.DateTimeField(auto_now_add=True)),
             ],
         ),
         migrations.RemoveField(
-            model_name='usersubmission',
-            name='files_submitted',
+            model_name="usersubmission",
+            name="files_submitted",
         ),
         migrations.AddField(
-            model_name='usersubmission',
-            name='files_submitted',
-            field=models.ManyToManyField(related_name='submissions', to='base.uploadedfile'),
+            model_name="usersubmission",
+            name="files_submitted",
+            field=models.ManyToManyField(
+                related_name="submissions", to="base.uploadedfile"
+            ),
         ),
     ]
