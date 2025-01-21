@@ -32,7 +32,25 @@ class Question(models.Model):
 
 # Model for User Submission and file tracking
 class UploadedFile(models.Model):
-    file = models.FileField(upload_to="submissions/")
+    SUBDIRECTORY_CHOICES = [
+        ('file_code','file_code'),
+        ('file_documentation','file_documentation'),
+        ('file_additional','file_additional'),
+        ('Unspecified','Unspecified'),
+    ]
+    
+    subdirectory = models.CharField(
+        max_length=100, 
+        choices=SUBDIRECTORY_CHOICES,
+        default=SUBDIRECTORY_CHOICES[3] # Default is 'Unspecified'
+    )
+
+
+    def get_upload_path(self, filename):
+        return f"submissions/{self.subdirectory}/{filename}"
+
+    file = models.FileField(upload_to=get_upload_path, max_length=500)
+    file_name = models.TextField()
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

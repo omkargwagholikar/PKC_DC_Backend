@@ -13,6 +13,7 @@ from rest_framework import status
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def solution(request):
+    print(request.data)
     # Validate and decode the token
     jwt_authenticator = JWTAuthentication()
     try:
@@ -35,9 +36,18 @@ def solution(request):
     # Save uploaded files
     saved_files = []
     for key, file in request.FILES.items():        
-        print(f"Saving {file.name}")
+        print(f"Saving {file.name} {key}")
+        filename = file.name
+        key = str(key).split("_")
+        key.pop(-1)
+        file_type = "_".join(key)
         file.name = f"{user}_{datetime.now()}_{file.name}"
-        uploaded_file = UploadedFile(file=file)
+
+        uploaded_file = UploadedFile(
+            file=file,
+            file_name=filename,
+            subdirectory=file_type,
+        )
         uploaded_file.save()
         saved_files.append(uploaded_file)
 
