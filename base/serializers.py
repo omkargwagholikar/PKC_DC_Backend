@@ -12,6 +12,7 @@ class UploadedFileSerializer(serializers.ModelSerializer):
             "id",
             "file",
             "uploaded_at",
+            "file_name",
         ]  # Adjust fields based on UploadedFile's attributes
 
 

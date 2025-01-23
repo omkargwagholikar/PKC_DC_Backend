@@ -63,8 +63,9 @@ class UserSubmissionListView(APIView):
 @api_view(["GET"])
 def download_file(request, file_name):
     # Path to the directory where your files are stored
+    print("In download_file")
     file_path = os.path.join("submissions", file_name)
-
+    print(f"File path: {file_path}")
     # Check if the file exists
     if not os.path.exists(file_path):
         raise Http404(f"The file {file_name} does not exist.")
