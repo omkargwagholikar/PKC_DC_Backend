@@ -10,10 +10,12 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.authentication import JWTAuthentication
+import logging
 
 from ..models import *
 from ..serializers import *
 
+logger = logging.getLogger("server_log")
 
 @api_view(["GET"])
 def getRoutes(request):
@@ -30,6 +32,7 @@ class UserSubmissionListView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
+        logger.info(request.data)
         submissions = (
             UserSubmission.objects.all()
         )  # Retrieve all UserSubmission objects
@@ -39,16 +42,22 @@ class UserSubmissionListView(APIView):
         return Response({"submissions": serializer.data}, status=status.HTTP_200_OK)
 
     def post(self, request, submission_id=None):
-        print(submission_id, request.data.get(
-            "score"), request.data.get("feedback"))
-        # print(request.data)
+        logger.info(submission_id, request.data.get("score"), request.data.get("feedback"))        
+        logger.info(request.data)
         try:
+            # {'status': 'approved', 'score': 12, 'feedback': 'TEst judgement'}
+            feedback = request.data.get("feedback")
+            score = request.data.get("score")
+
             sub = UserSubmission.objects.get(submission_id=submission_id)
-            judgement = Judgment(user_submission=sub,
-                                 remarks="test", score=10.1)
+            sub.status = request.data.get("status")
+            sub.save()
+
+            judgement = Judgment(user_submission=sub, remarks=feedback, score=score)
             judgement.save()
+
         except Exception as e:
-            print(f"Error in judgement: {str(e)}")
+            logger.info(f"Error in judgement: {str(e)}")
 
         return Response(
             {
@@ -63,9 +72,9 @@ class UserSubmissionListView(APIView):
 @api_view(["GET"])
 def download_file(request, file_name):
     # Path to the directory where your files are stored
-    print("In download_file")
+    logger.info("In download_file")
     file_path = os.path.join("submissions", file_name)
-    print(f"File path: {file_path}")
+    logger.info(f"File path: {file_path}")
     # Check if the file exists
     if not os.path.exists(file_path):
         raise Http404(f"The file {file_name} does not exist.")

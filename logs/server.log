@@ -1,0 +1,12 @@
+[2025-02-14 18:21:38] INFO server_log: {}
+[2025-02-14 18:21:38] INFO django.server: "GET /api/submissions HTTP/1.1" 200 4911
+[2025-02-14 18:21:38] INFO server_log: {}
+[2025-02-14 18:21:38] INFO django.server: "GET /api/submissions HTTP/1.1" 200 4911
+[2025-02-15 08:45:59] INFO django.server: "OPTIONS /api/submissions HTTP/1.1" 200 0
+[2025-02-15 08:45:59] INFO django.server: "OPTIONS /api/submissions HTTP/1.1" 200 0
+[2025-02-15 08:46:00] WARNING django.request: Unauthorized: /api/submissions
+[2025-02-15 08:46:00] WARNING django.server: "GET /api/submissions HTTP/1.1" 401 183
+[2025-02-15 08:46:00] WARNING django.request: Unauthorized: /api/submissions
+[2025-02-15 08:46:00] WARNING django.server: "GET /api/submissions HTTP/1.1" 401 183
+[2025-02-15 10:10:14] INFO django.server: "GET /admin/base/judgment/9/change/ HTTP/1.1" 200 13287
+[2025-02-15 10:10:15] INFO django.server: "GET /admin/jsi18n/ HTTP/1.1" 200 3343
