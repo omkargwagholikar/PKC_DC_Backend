@@ -32,13 +32,34 @@ class UserSubmissionListView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        logger.info(request.data)
-        submissions = (
-            UserSubmission.objects.all()
-        )  # Retrieve all UserSubmission objects
+        logger.info(f"In UserSubmissionListView: {request.data}")
+
+        # Step 1: Get the latest submission ID for each (user, question) combination
+        latest_submissions = UserSubmission.objects.values(
+            'user_id', 'question_id'  # Grouping by user and question
+        ).annotate(
+            latest_id=models.Max('submission_id')  # Finding the max submission_id (latest one)
+        )
+
+        # Step 2: Extract the submission IDs from the query result
+        submission_ids = [item['latest_id'] for item in latest_submissions]
+
+        # Step 3: Retrieve the actual UserSubmission objects using the IDs
+        submissions = UserSubmission.objects.filter(submission_id__in=submission_ids)
+
         serializer = UserSubmissionSerializer(
             submissions, many=True
         )  # Serialize as a list
+
+        logger.info(f"Sending the following data for judgement:")
+        logger.info(serializer.data[0])
+        for row in serializer.data:
+            logger.info(
+                f'{row["player_name"]} -> {row["question"]["question_id"]}'
+            )
+        
+        logger.info("Data complete")
+
         return Response({"submissions": serializer.data}, status=status.HTTP_200_OK)
 
     def post(self, request, submission_id=None):
