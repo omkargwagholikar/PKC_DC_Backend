@@ -32,7 +32,9 @@ class UserSubmissionListView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        logger.info(f"In UserSubmissionListView: {request.data}")
+        logger.info(f"In UserSubmissionListView get: {request.data}")
+        logger.info(f"Judge name: {request.user.username}")
+        judge_username = request.user.username
 
         # Step 1: Get the latest submission ID for each (user, question) combination
         latest_submissions = UserSubmission.objects.values(
@@ -48,15 +50,21 @@ class UserSubmissionListView(APIView):
         submissions = UserSubmission.objects.filter(submission_id__in=submission_ids)
 
         serializer = UserSubmissionSerializer(
-            submissions, many=True
+            submissions, many=True, context={"judge_username": judge_username}
         )  # Serialize as a list
 
-        logger.info(f"Sending the following data for judgement:")
-        logger.info(serializer.data[0])
+        logger.info(f"Sending the following data for judgement (max 5):")
+        # logger.info(serializer.data[0])
+        
+        temp = 0
         for row in serializer.data:
-            logger.info(
-                f'{row["player_name"]} -> {row["question"]["question_id"]}'
-            )
+            # logger.info(
+            #     f'{row["player_name"]} -> {row["question"]["question_id"]}'
+            # )
+            logger.info(row)
+            temp += 1
+            if temp >= 5:
+                break
         
         logger.info("Data complete")
 
@@ -67,14 +75,18 @@ class UserSubmissionListView(APIView):
         logger.info(request.data)
         try:
             # {'status': 'approved', 'score': 12, 'feedback': 'TEst judgement'}
+            judge_username = request.user.username
+            logger.info(f"Judge name in post: {request.user.username}")
+
             feedback = request.data.get("feedback")
             score = request.data.get("score")
 
             sub = UserSubmission.objects.get(submission_id=submission_id)
-            sub.status = request.data.get("status")
-            sub.save()
-
-            judgement = Judgment(user_submission=sub, remarks=feedback, score=score)
+            
+            judge_user = User.objects.get(username=judge_username)
+            judge_obj = CustomUser.objects.get(user=judge_user)
+            judgement = Judgment(user_submission=sub, remarks=feedback, score=score, judge=judge_obj)
+            judgement.status = request.data.get("status")
             judgement.save()
 
         except Exception as e:

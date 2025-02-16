@@ -219,5 +219,10 @@ LOGGING = {
             "level": "DEBUG",
             "propagate": False,
         },
+        "seralizer_log": {
+            "handlers": ["file", "console"],
+            "level": "DEBUG",
+            "propagate": False,
+        },
     },
 }

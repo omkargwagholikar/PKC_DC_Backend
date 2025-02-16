@@ -66,7 +66,18 @@ class UserSubmission(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     special_notes = models.TextField(blank=True, null=True)
 
-    # For judging
+    def __str__(self):
+        return f"Submission {self.submission_id} by {self.user.username}"
+
+
+# Model for Judgments
+class Judgment(models.Model):
+    user_submission = models.ForeignKey(
+        UserSubmission, on_delete=models.CASCADE)
+    
+    judge = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    remarks = models.TextField()
+    score = models.FloatField()
     status = models.CharField(
         max_length=20,
         choices=[
@@ -76,22 +87,5 @@ class UserSubmission(models.Model):
         ],
         default="pending",
     )
-
-    # score = models.FloatField(null=True, blank=True)
-    # feedback = models.TextField(null=True, blank=True)
-
-    def __str__(self):
-        return f"Submission {self.submission_id} by {self.user.username}"
-
-
-# Model for Judgments
-class Judgment(models.Model):
-    user_submission = models.ForeignKey(
-        UserSubmission, on_delete=models.CASCADE)
-    # question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    # user = models.ForeignKey(User, on_delete=models.CASCADE)
-    remarks = models.TextField()
-    score = models.FloatField()
-
     def __str__(self):
         return f"Judgment for Submission {self.user_submission.submission_id}"

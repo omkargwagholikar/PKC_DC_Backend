@@ -1,7 +1,9 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-
+import logging
 from .models import *
+
+logger = logging.getLogger("seralizer_log")
 
 
 # Serializer for UploadedFile model
@@ -44,6 +46,25 @@ class UserSubmissionSerializer(serializers.ModelSerializer):
     question = (
         QuestionSerializer()
     )  # Use the QuestionSerializer for detailed representation
+
+    status = serializers.SerializerMethodField()  # Dynamically fetch status
+
+
+
+    def get_status(self, obj):
+        judge_username = self.context.get("judge_username")  # Get judge from context
+        logger.info(f"Judge: {judge_username}, Submission id: {obj.submission_id}")
+
+        if not judge_username:
+            return "pending"
+                
+        # Get the latest judgment status if it exists, else return "pending"
+        # judgment = Judgment.objects.filter(user_submission=obj).first()
+        judge_user = User.objects.get(username = judge_username)
+        judge = CustomUser.objects.get(user = judge_user)
+        judgment = Judgment.objects.filter(user_submission=obj, judge=judge).first()
+
+        return judgment.status if judgment else "pending"    
 
     class Meta:
         model = UserSubmission
