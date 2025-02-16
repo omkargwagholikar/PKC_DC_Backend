@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./PKC_DC_Backend
+      dockerfile: Dockerfile
+    volumes:
+      - ./PKC_DC_Backend:/app
+    environment:
+      - DEBUG=True
+    networks:
+      - internal_network
+
+  frontend:
+    build:
+      context: ./PKC_DC
+      dockerfile: Dockerfile
+    volumes:
+      - ./PKC_DC:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    networks:
+      - internal_network
+
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - internal_network
+
+networks:
+  internal_network:
+    driver: bridge
