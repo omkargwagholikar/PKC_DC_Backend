@@ -2,7 +2,7 @@ import os
 
 from django.conf import settings
 from django.http import FileResponse, Http404
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect, render
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.parsers import MultiPartParser
@@ -11,6 +11,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.authentication import JWTAuthentication
 import logging
+from django.contrib import messages
 
 from ..models import *
 from ..serializers import *
@@ -25,6 +26,41 @@ def getRoutes(request):
     ]
     return Response(routes)
 
+def register(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        is_judge = request.POST.get('is_judge', False) == 'on'
+        is_player = request.POST.get('is_player', False) == 'on'
+
+        # Basic validation checks
+        if not username or not email or not password:
+            messages.error(request, "All fields are required.")
+            return redirect('register')
+
+        try:
+            logger.info(f"username: {username} - email: {email} - password: {password} - is_judge: {is_judge} - is_player: {is_player}")
+            user = User.objects.create_user(username=username, email=email, password=password)
+            custom_user = CustomUser(
+                user=user,
+                is_judge = is_judge,
+                is_player =is_player 
+            )
+            # Store custom data such as is_judge and is_player
+            user.save()
+            custom_user.save()
+            
+            logger.info("New user created")
+            messages.success(request, "Registration successful!")
+            return redirect('login')  # Redirect to login page after successful registration
+        except Exception as e:
+            logger.exception(f"Error in user registerations: {e}")
+
+            messages.error(request, f"Error: {e}")
+            return redirect('register')
+    
+    return render(request, 'registration_form.html')
 
 class UserSubmissionListView(APIView):
 

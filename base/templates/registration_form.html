@@ -1,0 +1,39 @@
+<!-- registration_form.html -->
+<form method="POST" action="{% url 'register' %}">
+    {% csrf_token %}
+    
+    <!-- Username -->
+    <div>
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" required>
+    </div>
+
+    <!-- Email -->
+    <div>
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+    </div>
+
+    <!-- Password -->
+    <div>
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required>
+    </div>
+
+    <!-- Is Judge -->
+    <div>
+        <label for="is_judge">Is Judge</label>
+        <input type="checkbox" id="is_judge" name="is_judge">
+    </div>
+
+    <!-- Is Player -->
+    <div>
+        <label for="is_player">Is Player</label>
+        <input type="checkbox" id="is_player" name="is_player">
+    </div>
+
+    <!-- Submit Button -->
+    <div>
+        <button type="submit">Register</button>
+    </div>
+</form>
