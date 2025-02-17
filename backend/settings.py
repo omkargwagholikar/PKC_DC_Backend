@@ -224,5 +224,10 @@ LOGGING = {
             "level": "DEBUG",
             "propagate": False,
         },
+        "models_log": {
+            "handlers": ["file", "console"],
+            "level": "DEBUG",
+            "propagate": False,
+        },
     },
 }

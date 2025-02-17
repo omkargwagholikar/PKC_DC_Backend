@@ -1,1 +1,67 @@
-[2025-02-17 11:55:36] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-02-17 14:37:31] INFO server_log: In UserSubmissionListView get: {}
+[2025-02-17 14:37:31] INFO server_log: Judge name: player2
+[2025-02-17 14:37:31] INFO server_log: Sending the following data for judgement (max 5):
+[2025-02-17 14:37:31] INFO server_log: Data complete
+[2025-02-17 14:37:31] INFO django.server: "GET /api/submissions HTTP/1.1" 200 18
+[2025-02-17 14:37:31] INFO server_log: In UserSubmissionListView get: {}
+[2025-02-17 14:37:31] INFO server_log: Judge name: player2
+[2025-02-17 14:37:31] INFO server_log: Sending the following data for judgement (max 5):
+[2025-02-17 14:37:31] INFO server_log: Data complete
+[2025-02-17 14:37:31] INFO django.server: "GET /api/submissions HTTP/1.1" 200 18
+[2025-02-17 14:37:44] INFO django.server: "POST /api/token/ HTTP/1.1" 200 638
+[2025-02-17 14:37:46] INFO server_log: In UserSubmissionListView get: {}
+[2025-02-17 14:37:46] INFO server_log: Judge name: player10
+[2025-02-17 14:37:46] INFO server_log: Sending the following data for judgement (max 5):
+[2025-02-17 14:37:46] INFO seralizer_log: Judge: player10, Submission id: 37
+[2025-02-17 14:37:46] INFO seralizer_log: Judge: player10, Submission id: 40
+[2025-02-17 14:37:46] INFO seralizer_log: Judge: player10, Submission id: 41
+[2025-02-17 14:37:46] INFO seralizer_log: Judge: player10, Submission id: 42
+[2025-02-17 14:37:46] INFO server_log: {'id': 37, 'player_name': 'player2', 'submitted_at': '2025-02-16T15:45:53.611501Z', 'status': 'pending', 'score': None, 'feedback': None, 'files': [{'id': 136, 'file': '/submissions/file_code/player2_2025-02-16_211553.281438_eslint.config.js', 'uploaded_at': '2025-02-16T15:45:53.339421Z', 'file_name': 'eslint.config.js'}], 'question': {'question_id': 3, 'domain': 'AI;Machine Learning', 'problem_title': 'Machine Learning Model Interpretability', 'difficulty_level': 'Hard'}, 'special_notes': 'this is some value 123'}
+[2025-02-17 14:37:46] INFO server_log: {'id': 40, 'player_name': 'player2', 'submitted_at': '2025-02-17T08:53:39.095696Z', 'status': 'pending', 'score': None, 'feedback': None, 'files': [{'id': 139, 'file': '/submissions/file_code/player2_2025-02-17_142338.905487_tailwind.config.js', 'uploaded_at': '2025-02-17T08:53:38.981444Z', 'file_name': 'tailwind.config.js'}], 'question': {'question_id': 1, 'domain': 'Algorithms;Performance', 'problem_title': 'Sorting Algorithm Optimization', 'difficulty_level': 'Easy'}, 'special_notes': 'http://localhost:5173/submission'}
+[2025-02-17 14:37:46] INFO server_log: {'id': 41, 'player_name': 'player2', 'submitted_at': '2025-02-17T08:53:59.674890Z', 'status': 'pending', 'score': None, 'feedback': None, 'files': [{'id': 140, 'file': '/submissions/file_code/player2_2025-02-17_142359.517097_manage.py', 'uploaded_at': '2025-02-17T08:53:59.520983Z', 'file_name': 'manage.py'}], 'question': {'question_id': 2, 'domain': 'Networking;Security', 'problem_title': 'Network Traffic Analyzer', 'difficulty_level': 'Medium'}, 'special_notes': 'http://localhost:5173/submission123'}
+[2025-02-17 14:37:46] INFO server_log: {'id': 42, 'player_name': 'player2', 'submitted_at': '2025-02-17T08:54:26.415872Z', 'status': 'pending', 'score': None, 'feedback': None, 'files': [{'id': 141, 'file': '/submissions/file_code/player2_2025-02-17_142426.304878_manage.py', 'uploaded_at': '2025-02-17T08:54:26.317228Z', 'file_name': 'manage.py'}], 'question': {'question_id': 4, 'domain': 'Distributed Systems;Performance', 'problem_title': 'Distributed Cache System', 'difficulty_level': 'Hard'}, 'special_notes': 'http://localhost:5173/submission321'}
+[2025-02-17 14:37:46] INFO server_log: Data complete
+[2025-02-17 14:37:46] INFO django.server: "GET /api/submissions HTTP/1.1" 200 1967
+[2025-02-17 14:37:46] INFO server_log: In UserSubmissionListView get: {}
+[2025-02-17 14:37:46] INFO server_log: Judge name: player10
+[2025-02-17 14:37:46] INFO server_log: Sending the following data for judgement (max 5):
+[2025-02-17 14:37:46] INFO seralizer_log: Judge: player10, Submission id: 37
+[2025-02-17 14:37:46] INFO seralizer_log: Judge: player10, Submission id: 40
+[2025-02-17 14:37:46] INFO seralizer_log: Judge: player10, Submission id: 41
+[2025-02-17 14:37:46] INFO seralizer_log: Judge: player10, Submission id: 42
+[2025-02-17 14:37:46] INFO server_log: {'id': 37, 'player_name': 'player2', 'submitted_at': '2025-02-16T15:45:53.611501Z', 'status': 'pending', 'score': None, 'feedback': None, 'files': [{'id': 136, 'file': '/submissions/file_code/player2_2025-02-16_211553.281438_eslint.config.js', 'uploaded_at': '2025-02-16T15:45:53.339421Z', 'file_name': 'eslint.config.js'}], 'question': {'question_id': 3, 'domain': 'AI;Machine Learning', 'problem_title': 'Machine Learning Model Interpretability', 'difficulty_level': 'Hard'}, 'special_notes': 'this is some value 123'}
+[2025-02-17 14:37:46] INFO server_log: {'id': 40, 'player_name': 'player2', 'submitted_at': '2025-02-17T08:53:39.095696Z', 'status': 'pending', 'score': None, 'feedback': None, 'files': [{'id': 139, 'file': '/submissions/file_code/player2_2025-02-17_142338.905487_tailwind.config.js', 'uploaded_at': '2025-02-17T08:53:38.981444Z', 'file_name': 'tailwind.config.js'}], 'question': {'question_id': 1, 'domain': 'Algorithms;Performance', 'problem_title': 'Sorting Algorithm Optimization', 'difficulty_level': 'Easy'}, 'special_notes': 'http://localhost:5173/submission'}
+[2025-02-17 14:37:46] INFO server_log: {'id': 41, 'player_name': 'player2', 'submitted_at': '2025-02-17T08:53:59.674890Z', 'status': 'pending', 'score': None, 'feedback': None, 'files': [{'id': 140, 'file': '/submissions/file_code/player2_2025-02-17_142359.517097_manage.py', 'uploaded_at': '2025-02-17T08:53:59.520983Z', 'file_name': 'manage.py'}], 'question': {'question_id': 2, 'domain': 'Networking;Security', 'problem_title': 'Network Traffic Analyzer', 'difficulty_level': 'Medium'}, 'special_notes': 'http://localhost:5173/submission123'}
+[2025-02-17 14:37:46] INFO server_log: {'id': 42, 'player_name': 'player2', 'submitted_at': '2025-02-17T08:54:26.415872Z', 'status': 'pending', 'score': None, 'feedback': None, 'files': [{'id': 141, 'file': '/submissions/file_code/player2_2025-02-17_142426.304878_manage.py', 'uploaded_at': '2025-02-17T08:54:26.317228Z', 'file_name': 'manage.py'}], 'question': {'question_id': 4, 'domain': 'Distributed Systems;Performance', 'problem_title': 'Distributed Cache System', 'difficulty_level': 'Hard'}, 'special_notes': 'http://localhost:5173/submission321'}
+[2025-02-17 14:37:46] INFO server_log: Data complete
+[2025-02-17 14:37:46] INFO django.server: "GET /api/submissions HTTP/1.1" 200 1967
+[2025-02-17 14:38:22] INFO django.server: "OPTIONS /player/solutions/ HTTP/1.1" 200 0
+[2025-02-17 14:38:23] INFO django.server: "POST /player/solutions/ HTTP/1.1" 201 236
+[2025-02-17 14:38:29] INFO server_log: In UserSubmissionListView get: {}
+[2025-02-17 14:38:29] INFO server_log: Judge name: player2
+[2025-02-17 14:38:29] INFO server_log: Sending the following data for judgement (max 5):
+[2025-02-17 14:38:29] INFO seralizer_log: Judge: player2, Submission id: 43
+[2025-02-17 14:38:29] INFO server_log: {'id': 43, 'player_name': 'player10', 'submitted_at': '2025-02-17T09:08:22.492134Z', 'status': 'pending', 'score': None, 'feedback': None, 'files': [{'id': 142, 'file': '/submissions/file_code/player10_2025-02-17_143822.221530_manage.py', 'uploaded_at': '2025-02-17T09:08:22.224891Z', 'file_name': 'manage.py'}], 'question': {'question_id': 4, 'domain': 'Distributed Systems;Performance', 'problem_title': 'Distributed Cache System', 'difficulty_level': 'Hard'}, 'special_notes': 'Somewhere outhere'}
+[2025-02-17 14:38:29] INFO server_log: Data complete
+[2025-02-17 14:38:29] INFO django.server: "GET /api/submissions HTTP/1.1" 200 487
+[2025-02-17 14:38:29] INFO server_log: In UserSubmissionListView get: {}
+[2025-02-17 14:38:29] INFO server_log: Judge name: player2
+[2025-02-17 14:38:29] INFO server_log: Sending the following data for judgement (max 5):
+[2025-02-17 14:38:29] INFO seralizer_log: Judge: player2, Submission id: 43
+[2025-02-17 14:38:29] INFO server_log: {'id': 43, 'player_name': 'player10', 'submitted_at': '2025-02-17T09:08:22.492134Z', 'status': 'pending', 'score': None, 'feedback': None, 'files': [{'id': 142, 'file': '/submissions/file_code/player10_2025-02-17_143822.221530_manage.py', 'uploaded_at': '2025-02-17T09:08:22.224891Z', 'file_name': 'manage.py'}], 'question': {'question_id': 4, 'domain': 'Distributed Systems;Performance', 'problem_title': 'Distributed Cache System', 'difficulty_level': 'Hard'}, 'special_notes': 'Somewhere outhere'}
+[2025-02-17 14:38:29] INFO server_log: Data complete
+[2025-02-17 14:38:29] INFO django.server: "GET /api/submissions HTTP/1.1" 200 487
+[2025-02-17 14:40:05] INFO django.server: "GET /admin/base/judgment/ HTTP/1.1" 200 11446
+[2025-02-17 14:40:05] INFO django.server: "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+[2025-02-17 14:40:09] INFO django.server: "POST /admin/base/judgment/ HTTP/1.1" 200 10213
+[2025-02-17 14:40:10] INFO django.server: "POST /admin/base/judgment/ HTTP/1.1" 302 0
+[2025-02-17 14:40:10] INFO django.server: "GET /admin/base/judgment/ HTTP/1.1" 200 10004
+[2025-02-17 14:40:10] INFO django.server: "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+[2025-02-17 14:40:12] INFO django.server: "GET /admin/base/oldjudgment/ HTTP/1.1" 200 11760
+[2025-02-17 14:40:12] INFO django.server: "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+[2025-02-17 14:40:14] INFO django.server: "GET /admin/base/oldjudgment/ HTTP/1.1" 200 11760
+[2025-02-17 14:40:14] INFO django.server: "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+[2025-02-17 14:40:27] INFO django.server: "GET /admin/base/customuser/ HTTP/1.1" 200 13008
+[2025-02-17 14:40:27] INFO django.server: "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+[2025-02-17 14:40:31] INFO django.server: "GET /admin/base/usersubmission/ HTTP/1.1" 200 12496
+[2025-02-17 14:40:31] INFO django.server: "GET /admin/jsi18n/ HTTP/1.1" 200 3343

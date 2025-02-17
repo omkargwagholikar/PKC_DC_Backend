@@ -1,5 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.dispatch import receiver
+from django.db.models.signals import pre_delete
 
 
 # Custom User model extending the default User model
@@ -9,7 +11,12 @@ class CustomUser(models.Model):
     is_player = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.user.username
+        role = ""
+        if self.is_judge:
+            role += "Judge"
+        if self.is_player:
+            role += " Challenger"
+        return f"{role} - {self.user.id}"
 
 
 # Model for Question
@@ -70,6 +77,22 @@ class UserSubmission(models.Model):
         return f"Submission {self.submission_id} by {self.user.username}"
 
 
+class OldJudgment(models.Model):
+    user_submission = models.ForeignKey(UserSubmission, on_delete=models.CASCADE)
+    judge = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    remarks = models.TextField()
+    score = models.FloatField()
+    status = models.CharField(max_length=20, choices=[
+        ("pending", "Pending"),
+        ("approved", "Approved"),
+        ("rejected", "Rejected"),
+    ])
+    deleted_at = models.DateTimeField(auto_now_add=True)  # Track deletion time
+
+    def __str__(self):
+        return f"Old Judgment {self.user_submission.submission_id} by {self.judge.user.username}"
+
+
 # Model for Judgments
 class Judgment(models.Model):
     user_submission = models.ForeignKey(
@@ -88,4 +111,28 @@ class Judgment(models.Model):
         default="pending",
     )
     def __str__(self):
-        return f"Judgment for Submission {self.user_submission.submission_id}"
+        return f"{self.judge.user.username} {self.user_submission.submission_id}"
+
+    def delete(self, *args, **kwargs):
+        """Move deleted judgments to OldJudgment before deleting"""
+        import logging
+        logger = logging.getLogger("models_log")
+        logger.info(f"Deleting Judgment {self.id} for submission {self.user_submission.submission_id}")
+        OldJudgment.objects.create(
+            user_submission=self.user_submission,
+            judge=self.judge,
+            remarks=self.remarks,
+            score=self.score,
+            status=self.status,
+        )
+        super().delete(*args, **kwargs)
+
+@receiver(pre_delete, sender=Judgment)
+def move_to_old_judgment(sender, instance, **kwargs):
+    OldJudgment.objects.create(
+        user_submission=instance.user_submission,
+        judge=instance.judge,
+        remarks=instance.remarks,
+        score=instance.score,
+        status=instance.status,
+    )

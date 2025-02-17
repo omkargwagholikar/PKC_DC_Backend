@@ -35,40 +35,54 @@ class UserSubmissionListView(APIView):
         logger.info(f"In UserSubmissionListView get: {request.data}")
         logger.info(f"Judge name: {request.user.username}")
         judge_username = request.user.username
+        judge_user = User.objects.filter(username=judge_username)
+        try:
+            judge_custom = CustomUser.objects.filter(user = judge_user.first()).first()
+            if not judge_custom.is_judge:
+                # raise
+                logger.info(f"Player: {judge_username} trying to access judge panel")
+                return Response({"submissions": []}, status=status.HTTP_200_OK)
 
-        # Step 1: Get the latest submission ID for each (user, question) combination
-        latest_submissions = UserSubmission.objects.values(
-            'user_id', 'question_id'  # Grouping by user and question
-        ).annotate(
-            latest_id=models.Max('submission_id')  # Finding the max submission_id (latest one)
-        )
+            # Step 1: Get the latest submission ID for each (user, question) combination
+            latest_submissions = UserSubmission.objects.values(
+                'user_id', 'question_id'  # Grouping by user and question
+            ).annotate(
+                latest_id=models.Max('submission_id')  # Finding the max submission_id (latest one)
+            )
 
-        # Step 2: Extract the submission IDs from the query result
-        submission_ids = [item['latest_id'] for item in latest_submissions]
+            # Step 2: Extract the submission IDs from the query result
+            submission_ids = [item['latest_id'] for item in latest_submissions]
 
-        # Step 3: Retrieve the actual UserSubmission objects using the IDs
-        submissions = UserSubmission.objects.filter(submission_id__in=submission_ids)
+            # Step 3: Retrieve the actual UserSubmission objects using the IDs
+            submissions = UserSubmission.objects.filter(submission_id__in=submission_ids)
+            # submissions = submissions.exclude(user=judge_user)
+            submissions = submissions.exclude(user_id=judge_user.first().id)
 
-        serializer = UserSubmissionSerializer(
-            submissions, many=True, context={"judge_username": judge_username}
-        )  # Serialize as a list
 
-        logger.info(f"Sending the following data for judgement (max 5):")
-        # logger.info(serializer.data[0])
+            serializer = UserSubmissionSerializer(
+                submissions, many=True, context={"judge_username": judge_username}
+            )  # Serialize as a list
+
+            logger.info(f"Sending the following data for judgement (max 5):")
+            # logger.info(serializer.data[0])
+            
+            temp = 0
+            for row in serializer.data:
+                # logger.info(
+                #     f'{row["player_name"]} -> {row["question"]["question_id"]}'
+                # )
+                logger.info(row)
+                temp += 1
+                if temp >= 5:
+                    break
+            
+            logger.info("Data complete")
+
+            return Response({"submissions": serializer.data}, status=status.HTTP_200_OK)
         
-        temp = 0
-        for row in serializer.data:
-            # logger.info(
-            #     f'{row["player_name"]} -> {row["question"]["question_id"]}'
-            # )
-            logger.info(row)
-            temp += 1
-            if temp >= 5:
-                break
-        
-        logger.info("Data complete")
-
-        return Response({"submissions": serializer.data}, status=status.HTTP_200_OK)
+        except Exception as e:
+            logger.info(f"There is an error: {str(e)}")
+            return Response({"subm☻issions": []}, status=status.HTTP_200_OK)
 
     def post(self, request, submission_id=None):
         logger.info(submission_id, request.data.get("score"), request.data.get("feedback"))        
