@@ -118,6 +118,7 @@ description: "Solution description"
 file1: [file]
 file2: [file]
 ...
+
 ```
 - **Response:**
 ```json
