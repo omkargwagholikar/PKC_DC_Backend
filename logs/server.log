@@ -15,3 +15,4 @@ Traceback (most recent call last):
 django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
 [2025-02-17 16:16:42] INFO django.server: "POST /api/register/ HTTP/1.1" 302 0
 [2025-02-17 16:16:42] INFO django.server: "GET /api/register/ HTTP/1.1" 200 1087
+[2025-02-17 16:25:33] INFO django.utils.autoreload: Watching for file changes with StatReloader
